@@ -50,9 +50,38 @@ export default class Slide {
     this.wrapper.addEventListener("mouseup", this.onEnd);
     this.wrapper.addEventListener("touchend", this.onEnd);
   }
+  // slide config
+  slidePoistion(slide) {
+    const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
+    return -(slide.offsetLeft - margin);
+  }
+  slideConfig() {
+    this.slideArrey = [...this.slide.children].map((element) => {
+      const position = this.slidePoistion(element);
+      return { element, position };
+    });
+    console.log(this.slideArrey);
+  }
+
+  changeSlide(index) {
+    const activeSlide = this.slideArrey[index];
+    this.moveSlide(activeSlide.position);
+    this.slideIndexNav(index);
+    finalPosition = activeSlide.position;
+  }
+  slideIndexNav(index) {
+    const last = this.slideArrey.length - 1;
+    this.index = {
+      prev: index ? index - 1 : undefined,
+      active: index,
+      next: index === last ? undefined : index + 1,
+    };
+  }
   init() {
     this.bindEvent();
     this.addSlideEvent();
+    this.slideConfig();
+
     return this;
   }
 }
