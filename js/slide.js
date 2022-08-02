@@ -66,7 +66,6 @@ export class Slide {
     this.wrapper.addEventListener("touchend", this.onEnd);
   }
   onResize() {
-    console.log("teste");
     setTimeout(() => {
       this.slideConfig();
       this.changeSlide(this.index.active);
